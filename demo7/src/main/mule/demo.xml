@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ftp="http://www.mulesoft.org/schema/mule/ftp" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ftp http://www.mulesoft.org/schema/mule/ftp/current/mule-ftp.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="96e48bd5-ead6-4e88-81fc-f2219f5fc003" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="ed159687-42c4-4578-a364-ea25bea13570" />
+	<ftp:config name="FTP_Config" doc:name="FTP Config" doc:id="735d3ccf-3241-4197-b6ee-1df4aa0058a9" >
+		<ftp:connection />
+	</ftp:config>
+	<flow name="demoFlow" doc:id="124585f3-327e-4d59-8ed8-1f037eed6ebe" >
+		<http:listener doc:name="Listener" doc:id="5dde35a5-ae54-402d-aebd-e8a518d86742" config-ref="HTTP_Listener_config" path="/project1"/>
+		<ftp:write doc:name="Write" doc:id="f48153e6-730c-41b6-af95-39841659994e" config-ref="FTP_Config" path="C:\Users\user\Downloads\zxc.txt">
+			<ftp:content ><![CDATA[adggggggggggggggggggggggggg]]></ftp:content>
+		</ftp:write>
+		<logger level="INFO" doc:name="Logger" doc:id="4b8f613a-9f22-4979-ae85-9776486f4bd9" message="#[payload]"/>
+	</flow>
+</mule>
